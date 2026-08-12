@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Un souvenir ❤️</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            min-height: 100vh;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #30152b,
+                    #09070d 70%
+                );
+
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font-family: inherit;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            animation: fadeIn 0.7s ease;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* PAGE 1 */
+
+        #page1 {
+            align-items: center;
+            justify-content: center;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #241329,
+                    #08080d
+                );
+        }
+
+        .terminal {
+            width: 100%;
+            max-width: 720px;
+
+            background: #101014;
+
+            border: 1px solid #333;
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 30px 80px
+                rgba(0, 0, 0, 0.65);
+        }
+
+        .terminal-header {
+            height: 45px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 8px;
+            padding: 0 15px;
+
+            background: #1c1c22;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .red {
+            background: #ff5f57;
+        }
+
+        .yellow {
+            background: #febc2e;
+        }
+
+        .green {
+            background: #28c840;
+        }
+
+        .terminal-title {
+            margin-left: 10px;
+            color: #999;
+            font-family: monospace;
+        }
+
+        .terminal-content {
+            padding: 40px;
+            font-family: monospace;
+        }
+
+        .terminal-line {
+            margin-bottom: 15px;
+            color: #b8b8b8;
+        }
+
+        .green-text {
+            color: #4ade80;
+        }
+
+        .terminal-content h1 {
+            margin-top: 45px;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            font-size: 42px;
+        }
+
+        .subtitle {
+            color: #999;
+            margin: 10px 0 30px;
+        }
+
+        .loading {
+            width: 100%;
+            height: 6px;
+
+            background: #24242b;
+
+            border-radius: 10px;
+
+            margin: 20px 0 25px;
+
+            overflow: hidden;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #ff4d8d,
+                    #ff6b6b
+                );
+
+            animation: loading 1.5s ease;
+        }
+
+        @keyframes loading {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        #nameForm {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #nameInput {
+            width: 100%;
+
+            padding: 16px;
+
+            border-radius: 8px;
+            border: 1px solid #444;
+
+            background: #18181e;
+            color: white;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        #nameInput:focus {
+            border-color: #ff4d8d;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(255, 77, 141, 0.1);
+        }
+
+        #nameForm button,
+        .main-button {
+            border: none;
+            cursor: pointer;
+
+            padding: 15px 25px;
+
+            border-radius: 9px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff4d8d,
+                    #ff6b6b
+                );
+
+            color: white;
+
+            font-size: 16px;
+            font-weight: 600;
+
+            transition: 0.25s ease;
+        }
+
+        #nameForm button:hover,
+        .main-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 30px
+                rgba(255, 77, 141, 0.3);
+        }
+
+        #errorMessage {
+            min-height: 22px;
+            text-align: center;
+            color: #ff5c5c;
+        }
+
+        .shake {
+            animation: shake 0.4s;
+        }
+
+        @keyframes shake {
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        /* PAGES 2 & 3 */
+
+        #page2,
+        #page3 {
+            flex-direction: column;
+            align-items: center;
+
+            text-align: center;
+
+            max-width: 950px;
+
+            margin: auto;
+        }
+
+        .heart {
+            font-size: 55px;
+            margin-bottom: 20px;
+
+            animation:
+                heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .page-title {
+            font-size:
+                clamp(
+                    32px,
+                    6vw,
+                    50px
+                );
+
+            margin-bottom: 15px;
+        }
+
+        .intro {
+            color: #aaa;
+
+            font-size: 18px;
+            line-height: 1.7;
+
+            margin-bottom: 40px;
+        }
+
+        /* GOOGLE FORM */
+
+        .form-card {
+            width: 100%;
+
+            background: white;
+
+            border-radius: 15px;
+
+            overflow: hidden;
+
+            margin-bottom: 30px;
+
+            box-shadow:
+                0 20px 60px
+                rgba(0, 0, 0, 0.4);
+        }
+
+        .form-card iframe {
+            display: block;
+
+            width: 100%;
+
+            min-height: 750px;
+
+            border: none;
+        }
+
+        /* TIMELINE */
+
+        .timeline {
+            position: relative;
+
+            width: 100%;
+            max-width: 750px;
+
+            margin: 50px auto;
+        }
+
+        .timeline::before {
+            content: "";
+
+            position: absolute;
+
+            left: 20px;
+            top: 0;
+            bottom: 0;
+
+            width: 2px;
+
+            background:
+                linear-gradient(
+                    #ff4d8d,
+                    #ff6b6b
+                );
+        }
+
+        .timeline-item {
+            position: relative;
+
+            padding-left: 60px;
+
+            margin-bottom: 45px;
+
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+
+            left: 11px;
+            top: 5px;
+
+            width: 20px;
+            height: 20px;
+
+            border-radius: 50%;
+
+            background: #ff4d8d;
+
+            box-shadow:
+                0 0 20px
+                rgba(255, 77, 141, 0.7);
+        }
+
+        .timeline-card {
+            padding: 25px;
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.05
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
+
+            border-radius: 15px;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-card h2 {
+            margin: 10px 0 15px;
+        }
+
+        .timeline-card p {
+            color: #bbb;
+
+            line-height: 1.8;
+
+            margin-bottom: 10px;
+        }
+
+        .timeline-card h4,
+        .timeline-card h5 {
+            color: #bbb;
+
+            font-size: 16px;
+
+            font-weight: 400;
+
+            line-height: 1.8;
+
+            margin-top: 15px;
+        }
+
+        .date {
+            color: #ff6b9d;
+
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+        /* PAGE 4 */
+
+        #page4 {
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #451a35,
+                    #0b080e
+                );
+        }
+
+        .declaration {
+            position: relative;
+
+            z-index: 2;
+
+            max-width: 750px;
+        }
+
+        .terminal-small {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            margin-bottom: 30px;
+
+            border-radius: 20px;
+
+            background:
+                rgba(
+                    74,
+                    222,
+                    128,
+                    0.1
+                );
+
+            color: #4ade80;
+
+            font-family: monospace;
+
+            font-size: 13px;
+        }
+
+        .declaration h1 {
+            font-size:
+                clamp(
+                    38px,
+                    7vw,
+                    70px
+                );
+
+            margin: 15px 0;
+        }
+
+        .big-heart {
+            font-size: 100px;
+
+            margin: 20px;
+
+            animation:
+                heartbeat 1.5s infinite;
+        }
+
+        .question {
+            color: #aaa;
+
+            font-size: 22px;
+        }
+
+        .declaration h2 {
+            font-size:
+                clamp(
+                    30px,
+                    6vw,
+                    55px
+                );
+
+            margin: 10px 0 40px;
+        }
+
+        .answer-buttons {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 20px;
+
+            flex-wrap: wrap;
+        }
+
+        .yes-button,
+        .no-button {
+            padding: 15px 35px;
+
+            border-radius: 50px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .yes-button {
+            border: none;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff4d8d,
+                    #ff6b6b
+                );
+
+            color: white;
+        }
+
+        .yes-button:hover {
+            transform: scale(1.08);
+
+            box-shadow:
+                0 10px 40px
+                rgba(
+                    255,
+                    77,
+                    141,
+                    0.5
+                );
+        }
+
+        .no-button {
+            background: #25252d;
+
+            border: 1px solid #444;
+
+            color: #aaa;
+        }
+
+        #heartsContainer {
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 200;
+        }
+
+        .floating-heart {
+            position: absolute;
+
+            bottom: -50px;
+
+            font-size: 25px;
+
+            animation:
+                floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            from {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+
+                opacity: 1;
+            }
+
+            to {
+                transform:
+                    translateY(-110vh)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .terminal-content {
+                padding: 25px;
+            }
+
+            .terminal-content h1 {
+                font-size: 32px;
+            }
+
+            .timeline-item {
+                padding-left: 50px;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .timeline-dot {
+                left: 6px;
+            }
+
+            .big-heart {
+                font-size: 75px;
+            }
+
+            .answer-buttons {
+                flex-direction: column;
+            }
+
+            .yes-button,
+            .no-button {
+                width: 200px;
+            }
+
+            .timeline-card {
+                padding: 20px;
+            }
+
+            .timeline-card h4,
+            .timeline-card h5 {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PAGE 1 -->
+
+    <section id="page1" class="page active">
+
+        <div class="terminal">
+
+            <div class="terminal-header">
+
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+
+                <h1 class="terminal-title">
+                    Un souvenir ❤️
+                </h1>
+
+            </div>
+
+            <div class="terminal-content">
+
+                <p class="terminal-line">
+                    <span class="green-text">$</span>
+                    ./start_declaration.sh
+                </p>
+
+                <p class="terminal-line">
+                    Initialisation du système...
+                </p>
+
+                <p class="terminal-line">
+                    Recherche d'une personne spéciale...
+                </p>
+
+                <div class="loading">
+                    <div class="loading-bar"></div>
+                </div>
+
+                <p class="terminal-line">
+                    <span class="green-text">✓</span>
+                    Système prêt.
+                </p>
+
+                <h1>
+                    Le mot de passe ?
+                </h1>
+
+                <p class="subtitle">
+                    Entre le mot de passe pour continuer...
+                </p>
+
+                <form id="nameForm">
+
+                    <input
+                        type="text"
+                        id="nameInput"
+                        placeholder="Mot de passe..."
+                        autocomplete="off"
+                    >
+
+                    <button type="submit">
+                        Continuer →
+                    </button>
+
+                    <p id="errorMessage"></p>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAGE 2 -->
+
+    <section id="page2" class="page">
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <h1 class="page-title">
+            J'ai quelques questions pour toi...
+        </h1>
+
+        <p class="intro">
+            Pas de question piège 😌
+            <br>
+            ce sont juste de simples questions
+        </p>
+
+        <div class="form-card">
+
+            <iframe
+                src="https://forms.gle/F8PqKHZXNb83ztUdA"
+                width="100%"
+                height="800"
+                frameborder="0">
+
+                Chargement...
+
+            </iframe>
+
+        </div>
+
+        <button
+            class="main-button"
+            onclick="showPage(3)">
+
+            J'ai terminé ❤️
+
+        </button>
+
+    </section>
+
+
+    <!-- PAGE 3 -->
+
+    <section id="page3" class="page">
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <h1 class="page-title">
+            Là où tout a commencé
+        </h1>
+
+        <p class="intro">
+            Il y a des rencontres qui semblent ordinaires
+            au début...
+            <br>
+            jusqu'à ce qu'elles deviennent importantes.
+        </p>
+
+        <div class="timeline">
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <h2>
+                        Le commencement
+                    </h2>
+
+                    <p>
+                        C'est ici que tout a commencé...
+                    </p>
+
+                    <h5>
+                        Si on m’avait dit un jour qu’une simple connaissance
+                        sur WhatsApp pourrait prendre une place aussi importante
+                        dans ma vie, je n’y aurais jamais cru.
+
+                        On a commencé à parler sans vraiment se connaître,
+                        alors qu’au fond, on partageait déjà les mêmes salles
+                        de cours et les mêmes TD, sans imaginer ce que cette
+                        rencontre allait devenir.
+
+                        Petit à petit, nos conversations sont devenues différentes.
+
+                        Puis, petit à petit, les conversations se sont multipliées,
+                        les habitudes se sont installées et, sans même m’en rendre
+                        compte, tu es devenue bien plus qu’une simple personne
+                        avec qui je discutais sur WhatsApp.
+                    </h5>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <h2>
+                        On s'est rapprochés
+                    </h2>
+
+                    <p>
+                        Parfois, la vie nous rapproche de certaines personnes
+                        d’une manière tellement simple qu’on ne réalise leur
+                        importance que lorsqu’elles ont déjà pris une place
+                        particulière dans notre cœur.
+                    </p>
+
+                    <h4>
+                        Ensuite sont venus les moments où j’ai commencé à te
+                        considérer comme l’une de mes plus belles connaissances
+                        à l’université.
+
+                        Tout a commencé avec le groupe de travail, puis avec les
+                        travaux à deux que nous faisions ensemble, toi et moi.
+
+                        C’est à partir de là que quelque chose a réellement
+                        changé entre nous : notre relation avait dépassé un
+                        certain cap.
+
+                        Peu à peu, je me suis habitué à ta présence au point de
+                        ne plus vraiment imaginer passer une journée sans avoir
+                        de tes nouvelles.
+
+                        On pouvait passer toute une journée à travailler ensemble
+                        et, pourtant, je ne me lassais jamais d’être avec toi.
+
+                        Et lorsque tu rentrais, il m’arrivait de t’appeler quelques
+                        minutes après, simplement parce que j’avais encore envie
+                        de garder ce lien avec toi.
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <h2>
+                        Un souvenir particulier
+                    </h2>
+
+                    <h4>
+                        Et parmi tous les moments que nous avons partagés,
+                        il y en a un qui reste particulièrement gravé dans
+                        ma mémoire : la veille de l’examen de probabilité.
+
+                        Je t’en avais parlé la semaine dernière, et aujourd’hui
+                        encore, c’est probablement mon plus beau souvenir avec toi.
+
+                        Ce soir-là, je me suis senti vraiment à l’aise à tes côtés,
+                        au point de pouvoir m’ouvrir à toi et de te parler avec
+                        une sincérité que je n’ai pas toujours facilement.
+
+                        Il y avait quelque chose de différent dans ce moment,
+                        une simplicité et une proximité que j’ai réellement
+                        ressenties.
+
+                        Même sans avoir besoin de beaucoup de mots, j’avais cette
+                        impression que tu étais vraiment proche de moi.
+
+                        Et je pense que c’est aussi à partir de ce moment-là
+                        que j’ai compris qu'un lien particulier avait été établi.
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <div class="timeline-item">
+
+                <div class="timeline-dot"></div>
+
+                <div class="timeline-card">
+
+                    <span class="date">
+                        ❤️ Aujourd'hui
+                    </span>
+
+                    <h2>
+                        Et puis j'ai compris...
+                    </h2>
+
+                    <h4>
+                        C’est surtout durant ces débuts de vacances que j’ai
+                        réellement compris à quel point je m’étais attaché à toi.
+
+                        Je me suis rendu compte que tu occupais une place
+                        particulière dans mes pensées : ton nom me revenait
+                        souvent à l’esprit, ton image aussi, et je repensais à
+                        nos conversations, à nos moments passés ensemble et à
+                        toutes ces petites choses qui, au départ, semblaient
+                        pourtant si simples.
+
+                        Sans vraiment l’avoir prévu, tu étais devenue une personne
+                        à laquelle je pensais énormément, une présence que je
+                        recherchais naturellement, et quelqu’un dont l’absence
+                        pouvait se faire ressentir.
+
+                        <br><br>
+
+                        Je ne sais pas exactement à quel moment c'est arrivé.
+
+                        <br><br>
+
+                        Mais quelque part entre nos discussions, nos rires et
+                        tous ces petits moments...
+
+                        <br><br>
+
+                        tu es devenue quelqu'un de vraiment important pour moi.
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            class="main-button"
+            onclick="showPage(4)">
+
+            Il reste une dernière chose... ❤️
+
+        </button>
+
+    </section>
+
+
+    <!-- PAGE 4 -->
+
+    <section id="page4" class="page">
+
+        <div id="heartsContainer"></div>
+
+        <div class="declaration">
+
+            <div class="terminal-small">
+                connection.established ❤️
+            </div>
+
+            <h1>
+                Une dernière question...
+            </h1>
+
+            <h3>
+                J'ai une dernière question.
+            </h3>
+
+            <div class="big-heart">
+                ❤️
+            </div>
+
+            <p class="question">
+                Est-ce que tu accepterais...
+            </p>
+
+            <h2>
+                qu'on apprenne à se connaître
+                autrement ?
+            </h2>
+
+            <div class="answer-buttons">
+
+                <button
+                    class="yes-button"
+                    onclick="sayYes()">
+
+                    OUI ❤️
+
+                </button>
+
+                <button
+                    class="no-button"
+                    onclick="sayNo()">
+
+                    Prenons notre temps 🌱
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function showPage(number) {
+
+            document
+                .querySelectorAll(".page")
+                .forEach(function(page) {
+
+                    page.classList.remove("active");
+
+                });
+
+            const page =
+                document.getElementById("page" + number);
+
+            page.classList.add("active");
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* MOT DE PASSE */
+
+        document
+            .getElementById("nameForm")
+            .addEventListener(
+                "submit",
+                function(event) {
+
+                    event.preventDefault();
+
+                    const input =
+                        document.getElementById(
+                            "nameInput"
+                        );
+
+                    const error =
+                        document.getElementById(
+                            "errorMessage"
+                        );
+
+                    const name =
+                        input.value.trim();
+
+                    /*
+                     * Mot de passe souvenir.
+                     * Tu peux le changer ici.
+                     */
+
+                    if (
+                        name.toLowerCase()
+                        === "gaye"
+                    ) {
+
+                        error.style.color =
+                            "#4ade80";
+
+                        error.textContent =
+                            "✓ Accès confirmé ❤️";
+
+                        setTimeout(function() {
+
+                            showPage(2);
+
+                        }, 1000);
+
+                    }
+
+                    else {
+
+                        error.style.color =
+                            "#ff5c5c";
+
+                        error.textContent =
+                            "❌ Ce n'est pas le bon mot de passe 😅";
+
+                        input.classList.add(
+                            "shake"
+                        );
+
+                        setTimeout(function() {
+
+                            input.classList.remove(
+                                "shake"
+                            );
+
+                        }, 500);
+
+                    }
+
+                }
+            );
+
+
+        /* BOUTON OUI */
+
+        function sayYes() {
+
+            const numero =
+                "221785875116";
+
+            const message =
+                "Bon... j'ai réfléchi jusqu'au bout 😅❤️ Et ma réponse est OUI.";
+
+            const whatsapp =
+                "https://wa.me/" +
+                numero +
+                "?text=" +
+                encodeURIComponent(message);
+
+            window.open(
+                whatsapp,
+                "_blank"
+            );
+
+        }
+
+
+        /* BOUTON PRENONS NOTRE TEMPS */
+
+        function sayNo() {
+
+            const numero =
+                "221785875116";
+
+            const message =
+                "Je préfère qu'on prenne notre temps 🌱❤️";
+
+            const whatsapp =
+                "https://wa.me/" +
+                numero +
+                "?text=" +
+                encodeURIComponent(message);
+
+            window.open(
+                whatsapp,
+                "_blank"
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
